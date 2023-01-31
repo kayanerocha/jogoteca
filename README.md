@@ -32,7 +32,7 @@ Este projeto tem como intuito praticar conhecimentos adquiridos no curso "Flask:
 
 **Front-end:** HTML e Bootstrap
 
-**Back-end:** Python e Flask
+**Back-end:** Python, Flask, MySQL e SQLAlchemy
 
 
 ## Rodando localmente
