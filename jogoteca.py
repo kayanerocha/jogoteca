@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session, flash
 
 class Jogo:
     def __init__(self, nome, categoria, console) -> None:
@@ -25,6 +25,7 @@ jogos = [jogo1, jogo2, jogo3]
 
 # __name__: faz referência a esse próprio arquivo
 app = Flask(__name__)
+app.secret_key = 'kvrds' # camada de segurança que criptografa o cookie
 
 @app.route('/')
 def index():
@@ -51,7 +52,10 @@ def login():
 @app.route('/autenticar', methods=['POST'])
 def autenticar():
     if request.form['senha'] == '1234':
+        session['usuario_logado'] = request.form['usuario']
+        flash(f'{session["usuario_logado"]} logado com sucesso!')
         return redirect('/novo')
+    flash('Usuário não logado!')
     return redirect('/login')
 
 app.run(debug=True)
