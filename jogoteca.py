@@ -18,6 +18,31 @@ class Jogo:
     def console(self):
         return self.__console
 
+class Usuario:
+    def __init__(self, nome, nickname, senha) -> None:
+        self.__nome = nome
+        self.__nickname = nickname
+        self.__senha = senha
+    
+    @property
+    def nome(self):
+        return self.__nome
+    
+    @property
+    def nickname(self):
+        return self.__nickname
+    
+    @property
+    def senha(self):
+        return self.__senha
+
+usuario1 = Usuario('Kayane', 'kayane', '1234')
+usuario2 = Usuario('Vitória', 'vitoria', '5678')
+usuario3 = Usuario('Camila', 'cami', '2468')
+usuarios = {usuario1.nickname: usuario1.senha,
+            usuario2.nickname: usuario2.senha,
+            usuario3.nickname: usuario3.senha}
+
 jogo1 = Jogo('Tetris', 'Puzzle', 'Atari')
 jogo2 = Jogo('God of War', 'Rack and Slash', 'PS2')
 jogo3 = Jogo('Mortal Kombat', 'Luta', 'PS2')
@@ -50,15 +75,18 @@ def criar():
 @app.route('/login')
 def login():
     proxima = request.args.get('proxima')
+    proxima = 'novo' if proxima is None else proxima
     return render_template('login.html', proxima=proxima)
 
 @app.route('/autenticar', methods=['POST'])
 def autenticar():
-    if request.form['senha'] == '1234':
-        session['usuario_logado'] = request.form['usuario']
-        flash(f'{session["usuario_logado"]} logado com sucesso!')
-        proxima_pagina = request.form["proxima"]
-        return redirect(proxima_pagina)
+    nickname = request.form['usuario']
+    if nickname in usuarios:
+        if request.form['senha'] == usuarios[nickname]:
+            session['usuario_logado'] = nickname
+            flash(f'{nickname} logado com sucesso!')
+            proxima_pagina = request.form["proxima"]
+            return redirect(proxima_pagina)
     flash('Usuário não logado!')
     return redirect(url_for('login'))
 
