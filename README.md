@@ -34,3 +34,36 @@ Este projeto tem como intuito praticar conhecimentos adquiridos no curso "Flask:
 
 **Back-end:** Python e Flask
 
+
+## Rodando localmente
+
+Clone o projeto
+
+```bash
+  git clone https://github.com/kayanerocha/jogoteca.git
+```
+
+Entre no diretório do projeto
+
+```bash
+  cd jogoteca
+```
+
+Crie um ambiente virtual
+
+```
+virtualenv .venv
+```
+
+Instale as dependências
+
+```bash
+  .venv/Scripts/pip.exe -r requirements.txt
+```
+
+Inicie o servidor
+
+```bash
+  .venv/Scripts/python.exe jogoteca.py
+```
+
