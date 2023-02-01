@@ -1,54 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 
-class Jogo:
-    def __init__(self, nome, categoria, console) -> None:
-        self.__nome = nome
-        self.__categoria = categoria
-        self.__console = console
-    
-    @property
-    def nome(self):
-        return self.__nome
-    
-    @property
-    def categoria(self):
-        return self.__categoria
-    
-    @property
-    def console(self):
-        return self.__console
-
-class Usuario:
-    def __init__(self, nome, nickname, senha) -> None:
-        self.__nome = nome
-        self.__nickname = nickname
-        self.__senha = senha
-    
-    @property
-    def nome(self):
-        return self.__nome
-    
-    @property
-    def nickname(self):
-        return self.__nickname
-    
-    @property
-    def senha(self):
-        return self.__senha
-
-usuario1 = Usuario('Kayane', 'kayane', '1234')
-usuario2 = Usuario('Vitória', 'vitoria', '5678')
-usuario3 = Usuario('Camila', 'cami', '2468')
-usuarios = {usuario1.nickname: usuario1.senha,
-            usuario2.nickname: usuario2.senha,
-            usuario3.nickname: usuario3.senha}
-
-jogo1 = Jogo('Tetris', 'Puzzle', 'Atari')
-jogo2 = Jogo('God of War', 'Rack and Slash', 'PS2')
-jogo3 = Jogo('Mortal Kombat', 'Luta', 'PS2')
-jogos = [jogo1, jogo2, jogo3]
-
 # __name__: faz referência a esse próprio arquivo
 app = Flask(__name__)
 app.secret_key = 'kvrds' # camada de segurança que criptografa o cookie
@@ -84,7 +36,8 @@ class Usuarios(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('lista.html', titulo='Jogos', jogos=jogos)
+    lista = Jogos.query.order_by(Jogos.id)
+    return render_template('lista.html', titulo='Jogos', jogos=lista)
 
 @app.route('/novo')
 def novo():
@@ -97,8 +50,16 @@ def criar():
     nome = request.form['nome']
     categoria = request.form['categoria']
     console = request.form['console']
-    jogo = Jogo(nome, categoria, console)
-    jogos.append(jogo)
+    
+    # Verifica se o jogo existe
+    jogo = Jogos.query.filter_by(nome=nome).first()
+    if jogo:
+        flash('Jogo já existente!')
+        return redirect(url_for('index'))
+    
+    novo_jogo = Jogos(nome=nome, categoria=categoria, console=console)
+    db.session.add(novo_jogo)
+    db.session.commit()
 
     return redirect(url_for('index'))
 
@@ -111,10 +72,11 @@ def login():
 @app.route('/autenticar', methods=['POST'])
 def autenticar():
     nickname = request.form['usuario']
-    if nickname in usuarios:
-        if request.form['senha'] == usuarios[nickname]:
+    usuario = Usuarios.query.filter_by(nickname=nickname).first()
+    if usuario:
+        if request.form['senha'] == usuario.senha:
             session['usuario_logado'] = nickname
-            flash(f'{nickname} logado com sucesso!')
+            flash(f'{usuario.nickname} logado com sucesso!')
             proxima_pagina = request.form["proxima"]
             return redirect(proxima_pagina)
     flash('Usuário não logado!')
