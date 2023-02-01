@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, flash, url_for
+from flask_sqlalchemy import SQLAlchemy
 
 class Jogo:
     def __init__(self, nome, categoria, console) -> None:
@@ -51,6 +52,18 @@ jogos = [jogo1, jogo2, jogo3]
 # __name__: faz referência a esse próprio arquivo
 app = Flask(__name__)
 app.secret_key = 'kvrds' # camada de segurança que criptografa o cookie
+
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+    '{SGBD}://{usuario}:{senha}@{servidor}/{database}'.format(
+        SGBD = 'mysql+mysqlconnector',
+        usuario = 'root',
+        senha = '',
+        servidor = '127.0.0.1',
+        database = 'jogoteca'
+    )
+
+# Instancia o banco do SQLAlchemy que faz a ponte com o banco de dados real
+db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
