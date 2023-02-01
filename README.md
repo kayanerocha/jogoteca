@@ -1,7 +1,7 @@
 
 # Jogoteca
 
-Este projeto tem como intuito praticar conhecimentos adquiridos no curso "Flask: crie uma webapp com Python" da Alura.
+Este projeto tem como intuito praticar conhecimentos adquiridos no curso "Flask: crie uma webapp com Python" e "Flask: avançando no desenvolvimento web com Python" da Alura.
 
 
 
