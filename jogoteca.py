@@ -17,23 +17,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
 # Instancia o banco do SQLAlchemy que faz a ponte com o banco de dados real
 db = SQLAlchemy(app)
 
-class Jogos(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    nome = db.Column(db.String(50), nullable=False)
-    categoria = db.Column(db.String(40), nullable=False)
-    console = db.Column(db.String(20), nullable=False)
-
-    def __repr__(self) -> str:
-        return f'<Name {self.name}>'
-
-class Usuarios(db.Model):
-    nickname = db.Column(db.String(8), primary_key=True)
-    nome = db.Column(db.String(20), nullable=False)
-    senha = db.Column(db.String(100), nullable=False)
-
-    def __repr__(self) -> str:
-        return f'<Name {self.name}>'
-
 @app.route('/')
 def index():
     lista = Jogos.query.order_by(Jogos.id)
@@ -50,7 +33,7 @@ def criar():
     nome = request.form['nome']
     categoria = request.form['categoria']
     console = request.form['console']
-    
+
     # Verifica se o jogo existe
     jogo = Jogos.query.filter_by(nome=nome).first()
     if jogo:
