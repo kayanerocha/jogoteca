@@ -30,7 +30,7 @@ Este projeto tem como intuito praticar conhecimentos adquiridos no curso "Flask:
 
 ## Stack utilizada
 
-**Front-end:** HTML e Bootstrap
+**Front-end:** HTML, CSS, JavaScript, Bootstrap e JQuery
 
 **Back-end:** Python, Flask, MySQL e SQLAlchemy
 
