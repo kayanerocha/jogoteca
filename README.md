@@ -9,6 +9,8 @@ Este projeto tem como intuito praticar conhecimentos adquiridos no curso "Flask:
 
 - Listar Jogos
 - Cadastrar novos jogos
+- Editar Jogos
+- Excluir Jogos
 - Fazer login
 - Restringir acesso
 
