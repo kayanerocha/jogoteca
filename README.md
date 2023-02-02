@@ -26,6 +26,12 @@ Este projeto tem como intuito praticar conhecimentos adquiridos no curso "Flask:
 - Dinamizar URLs
 - Guardar dados com Session
 - Utilizar Query Strings
+- Integrar a aplicação com o Banco de Dados MySQL
+- Utilizar o ORM SQLAlchemy
+- Implementar um CRUD completo
+- Adicionar imagens na aplicação
+- Validar formulários com o Flask WTF
+- Usar criptografia nas senhas com o Bcrypt
 
 
 ## Stack utilizada
