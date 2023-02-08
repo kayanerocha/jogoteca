@@ -1,6 +1,9 @@
 {% extends "template.html" %}
 {% block conteudo %}
-        <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+        {% if not session['usuario_logado'] %}
+            <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+            <a class="btn btn-primary" href="{{ url_for('logout') }}">Criar Conta</a>
+        {% endif %}
         {% if session['usuario_logado'] %}
             <a class="btn btn-danger" href="{{ url_for('logout') }}">Logout</a>
         {% endif %}
