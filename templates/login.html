@@ -19,7 +19,7 @@
                 </ul>
             {% endif %}
         {% endwith %}
-        <h1>Faça seu login</h1>
+        <h1>Faça seu Login</h1>
         <form method="POST" action="{{ url_for('autenticar') }}">
             <input type="hidden" name="proxima" value="{{ proxima }}">
             {{ form.csrf_token() }}

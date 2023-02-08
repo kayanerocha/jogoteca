@@ -2,7 +2,7 @@
 {% block conteudo %}
         {% if not session['usuario_logado'] %}
             <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
-            <a class="btn btn-primary" href="{{ url_for('logout') }}">Criar Conta</a>
+            <a class="btn btn-primary" href="{{ url_for('novo') }}">Criar Conta</a>
         {% endif %}
         {% if session['usuario_logado'] %}
             <a class="btn btn-danger" href="{{ url_for('logout') }}">Logout</a>

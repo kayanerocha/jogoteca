@@ -25,6 +25,10 @@ def autenticar():
     flash('Usuário não logado!')
     return redirect(url_for('login'))
 
+@app.rout('/novo-usuario')
+def novo():
+    return render_template()
+
 @app.route('/logout')
 def logout():
     session['usuario_logado'] = None
